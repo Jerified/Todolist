@@ -15,12 +15,21 @@ const App = () => {
         localStorage.setItem('todos', JSON.stringify(todos));
       }, [todos]); 
   
-    const handleCheck = (id: number) => {
-      setTodos((pv) =>
-        pv.map((t) => (t.id === id ? { ...t, checked: !t.checked } : t))
-      );
-      toast.success('Todo has been completed')
-    };
+      const handleCheck = (id: number) => {
+        setTodos((prevTodos) =>
+          prevTodos.map((todo) => {
+            if (todo.id === id) {
+              const updatedTodo = { ...todo, checked: !todo.checked };
+              if (updatedTodo.checked) {
+                toast.success('Todo has been completed');
+              }
+              return updatedTodo;
+            } else {
+              return todo;
+            }
+          })
+        );
+      };
     
     const removeElement = (id: number) => {
       setTodos((pv) => pv.filter((t) => t.id !== id));
