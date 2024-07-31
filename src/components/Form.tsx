@@ -1,7 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { TodoProps } from "../utils/todos";
+import { toast } from "sonner";
 
 interface FormProps {
     setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>
@@ -9,10 +10,17 @@ interface FormProps {
 
 const Form = ({ setTodos }: FormProps) => {
     const [visible, setVisible] = useState(false);
-  
+    const textInputRef = useRef<HTMLTextAreaElement>(null);
     const [time, setTime] = useState(15);
     const [text, setText] = useState("");
     const [unit, setUnit] = useState("mins");
+
+    const handleOpenForm = () => {
+        setVisible(prev => !prev)
+        if (textInputRef.current) {
+          textInputRef.current.focus();
+        }
+      };
   
     const handleSubmit = () => {
       if (!text.length) {
@@ -31,6 +39,7 @@ const Form = ({ setTodos }: FormProps) => {
       setTime(15);
       setText("");
       setUnit("mins");
+      toast.success('New todo has been added')
     };
   
     return (
@@ -48,7 +57,9 @@ const Form = ({ setTodos }: FormProps) => {
               className="mb-6 w-full rounded border border-zinc-700 bg-zinc-900 p-3"
             >
               <textarea
+                ref={textInputRef}
                 value={text}
+                autoFocus
                 onChange={(e) => setText(e.target.value)}
                 placeholder="What do you need to do?"
                 className="h-24 w-full resize-none rounded bg-zinc-900 p-3 text-sm text-zinc-50 placeholder-zinc-500 caret-zinc-50 focus:outline-0"
@@ -87,7 +98,7 @@ const Form = ({ setTodos }: FormProps) => {
           )}
         </AnimatePresence>
         <button
-          onClick={() => setVisible((pv) => !pv)}
+          onClick={handleOpenForm}
           className="grid w-full place-content-center rounded-full border border-zinc-700 bg-zinc-900 py-3 text-lg text-white transition-colors hover:bg-zinc-800 active:bg-zinc-900"
         >
           <FiPlus
