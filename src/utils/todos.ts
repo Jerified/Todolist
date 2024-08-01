@@ -6,9 +6,12 @@ export interface TodoProps {
   }
   
  export interface TodosProps {
+    // setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>;
     todos: TodoProps[];
     handleCheck: (id: number) => void;
     removeElement: (id: number) => void;
+    handleSaveEdit: (id: number, newText: string) => void;
+
   }
 
 export const todo: TodoProps[] = [
@@ -20,7 +23,7 @@ export const todo: TodoProps[] = [
     },
     {
       id: 2,
-      text: "Do laundry",
+      text: "Do Remote work at Business yield consult",
       checked: false,
       time: "10 mins",
     },

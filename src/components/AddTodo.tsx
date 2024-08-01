@@ -1,39 +1,48 @@
-import { AnimatePresence } from "framer-motion";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import React, { useRef, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { TodoProps } from "../utils/todos";
+import { toast } from "sonner";
 
-interface AddTodoProps {
-    setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>
+interface FormProps {
+    setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>;
+    // isEditing: boolean;
+    todoToEdit?: TodoProps;// Function to handle edits
   }
-
-
-const AddTodo = ({ setTodos }: AddTodoProps) => {
-    const [visible, setVisible] = useState(false);
   
+
+const AddTodo = ({ setTodos }: FormProps) => {
+    const [visible, setVisible] = useState(false);
+    const textInputRef = useRef<HTMLTextAreaElement>(null);
     const [time, setTime] = useState(15);
     const [text, setText] = useState("");
     const [unit, setUnit] = useState("mins");
+
+    const handleOpenForm = () => {
+        setVisible(prev => !prev)
+        if (textInputRef.current) {
+          textInputRef.current.focus();
+        }
+      };
   
     const handleSubmit = () => {
       if (!text.length) {
         return;
       }
   
-      setTodos((pv) => [
-        {
-          id: Math.random(),
-          text,
-          checked: false,
-          time: `${time} ${unit}`,
-        },
-        ...pv,
-      ]);
+      const newTodo: TodoProps = {
+        id: Math.random(),
+        text,
+        checked: false,
+        time: `${time} ${unit}`,
+      };
+  
+      setTodos((prevTodos) => [newTodo, ...prevTodos]);
   
       setTime(15);
       setText("");
       setUnit("mins");
+      toast.success('New todo has been added')
     };
   
     return (
@@ -51,7 +60,9 @@ const AddTodo = ({ setTodos }: AddTodoProps) => {
               className="mb-6 w-full rounded border border-zinc-700 bg-zinc-900 p-3"
             >
               <textarea
+                ref={textInputRef}
                 value={text}
+                autoFocus
                 onChange={(e) => setText(e.target.value)}
                 placeholder="What do you need to do?"
                 className="h-24 w-full resize-none rounded bg-zinc-900 p-3 text-sm text-zinc-50 placeholder-zinc-500 caret-zinc-50 focus:outline-0"
@@ -90,7 +101,7 @@ const AddTodo = ({ setTodos }: AddTodoProps) => {
           )}
         </AnimatePresence>
         <button
-          onClick={() => setVisible((pv) => !pv)}
+          onClick={handleOpenForm}
           className="grid w-full place-content-center rounded-full border border-zinc-700 bg-zinc-900 py-3 text-lg text-white transition-colors hover:bg-zinc-800 active:bg-zinc-900"
         >
           <FiPlus

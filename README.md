@@ -19,7 +19,7 @@ A React-based todo list application that allows users to manage their tasks effi
 1. Clone the repository: `git clone https://github.com/Jerified/TodoList.git`
 2. Navigate to the project directory: `cd TodoList`
 3. Install dependencies: `npm install`
-4. Start the development server: `npm start`
+4. Start the development server: `npm run dev`
 
 **Usage:**
 * Click the "Add Todo" button to create a new todo.
