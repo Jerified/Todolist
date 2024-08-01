@@ -6,7 +6,6 @@ export interface TodoProps {
   }
   
  export interface TodosProps {
-    // setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>;
     todos: TodoProps[];
     handleCheck: (id: number) => void;
     removeElement: (id: number) => void;
