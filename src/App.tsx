@@ -8,8 +8,12 @@ import AddTodo from "./components/AddTodo";
 const App = () => {
     const [todos, setTodos] = useState<TodoProps[]>(() => {
         const storedTodos = localStorage.getItem('todos');
-        return storedTodos ? JSON.parse(storedTodos) : todo;
-      }); 
+        if (storedTodos) {
+            return JSON.parse(storedTodos); 
+        } else {
+            return todo;
+        }
+    }); 
     
       useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
@@ -24,7 +28,6 @@ const App = () => {
                 toast.success('Todo has been completed');
                 const updatedTodos = JSON.stringify(updatedTodo)
                 localStorage.setItem("todos", updatedTodos)
-                console.log(updatedTodos);
               }
               return updatedTodo;
             } else {
@@ -65,7 +68,6 @@ const App = () => {
             removeElement={removeElement}
             todos={todos}
             handleSaveEdit={handleSaveEdit}
-            // setTodos={setTodos}
             handleCheck={handleCheck}
           />
         </div>

@@ -6,8 +6,9 @@ A React-based todo list application that allows users to manage their tasks effi
 **Features:**
 * Create new todos with descriptions and due dates
 * Mark todos as completed or incomplete
+* Edit todo details (text)
 * Delete individual or all completed todos
-* Filter todos by status (all, active, completed)
+* Filter todos by status (completed)
 
 **Technologies Used:**
 * React
@@ -25,6 +26,7 @@ A React-based todo list application that allows users to manage their tasks effi
 * Click the "Add Todo" button to create a new todo.
 * Enter the todo description and optional due date.
 * Click the checkbox to mark a todo as completed.
+* Click the edit button to modify todo details
 * Use the filters to view active or completed todos.
 
 **Contributing:**

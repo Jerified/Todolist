@@ -1,9 +1,10 @@
 import { AnimatePresence } from "framer-motion";
 import Todo from "./Todo";
 import { TodosProps } from "../utils/todos";
+import React from "react";
 
 
-const Todos = ({ todos, handleCheck, removeElement, handleSaveEdit }: TodosProps) => {
+const Todos = React.memo(({ todos, handleCheck, removeElement, handleSaveEdit }: TodosProps) => {
     return (
       <div className="w-full space-y-3">
         <AnimatePresence>
@@ -23,6 +24,6 @@ const Todos = ({ todos, handleCheck, removeElement, handleSaveEdit }: TodosProps
         </AnimatePresence>
       </div>
     );
-  };
+  });
 
   export default Todos
