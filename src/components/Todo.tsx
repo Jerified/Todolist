@@ -15,7 +15,6 @@ interface TodoProps {
     text: string
   }
   const Todo = ({ removeElement, handleCheck, id, text, checked, time, handleSaveEdit }: TodoProps) => {
-    const updatedTodo = {id, text, checked, time}
     const [editing, setEditing] = useState(false)
     const [isPresent, safeToRemove] = usePresence();
     const [scope, animate] = useAnimate();
@@ -24,6 +23,7 @@ interface TodoProps {
 
     const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         handleSaveEdit(id, e.target.value)
+        console.log( id, e.target.value)
     }
 
     useEffect(() => {
@@ -38,15 +38,11 @@ interface TodoProps {
     
     const handleInputBlur = () => {
         setEditing(false)
-        const updatedTodos = JSON.stringify(updatedTodo)
-        localStorage.setItem("todos", updatedTodos)
     }
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         setEditing(false)
-        const updatedTodos = JSON.stringify(updatedTodo)
-        localStorage.setItem("todos", updatedTodos)
         toast.success('Todo has been updated');
     }
     const handleChange = () => {
@@ -127,8 +123,6 @@ interface TodoProps {
                         <span>{time}</span>
                     </div>
                     <button
-                    // onClick={handleChange}
-                    //   onClick={() => setEditing(true)}
                     type="submit"
                     className="rounded bg-zinc-300/20 px-1.5 py-1 text-xs text-zinc-300 transition-colors hover:bg-zinc-600 hover:text-zinc-200"
                     >
@@ -149,7 +143,7 @@ interface TodoProps {
                 type="checkbox"
                 checked={checked}
                 onChange={() => handleCheck(id)}
-                className="size-4 accent-indigo-400 cursor-pointer"
+                className="size-4 w-fit accent-indigo-400 cursor-pointer"
                 />
         
                 <motion.p

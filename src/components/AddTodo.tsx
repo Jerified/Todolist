@@ -6,8 +6,6 @@ import { toast } from "sonner";
 
 interface FormProps {
     setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>;
-    // isEditing: boolean;
-    todoToEdit?: TodoProps;// Function to handle edits
   }
   
 

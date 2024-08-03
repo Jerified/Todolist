@@ -1,26 +1,16 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import Todos from "./components/Todos";
 import Header from "./components/Header";
 import { todo, TodoProps } from "./utils/todos";
 import { toast, Toaster } from 'sonner'
 import AddTodo from "./components/AddTodo";
+import {useLocalStorage} from "./hooks/useLocalStorage";
 
-const App = () => {
-    const [todos, setTodos] = useState<TodoProps[]>(() => {
-        const storedTodos = localStorage.getItem('todos');
-        if (storedTodos) {
-            return JSON.parse(storedTodos); 
-        } else {
-            return todo;
-        }
-    }); 
-    
-      useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos));
-      }, [todos]); 
-  
+const App = () => {      
+    const [todos, setTodos] = useLocalStorage('todos', todo)
+
       const handleCheck = (id: number) => {
-        setTodos((prevTodos) =>
+        setTodos((prevTodos: TodoProps[]) =>
           prevTodos.map((todo) => {
             if (todo.id === id) {
               const updatedTodo = { ...todo, checked: !todo.checked };
@@ -29,29 +19,23 @@ const App = () => {
                 const updatedTodos = JSON.stringify(updatedTodo)
                 localStorage.setItem("todos", updatedTodos)
               }
-              return updatedTodo;
-            } else {
-              return todo;
-            }
-          })
-        );
-      };
+                return updatedTodo;
+           } else {
+            return todo;
+           }
+    }))};
       const handleSaveEdit = (id: number, newText: string) => {
-        setTodos((pv) =>
-          pv.map((t) =>
-            t.id === id ? { ...t, text: newText } : t
+        setTodos((pv: TodoProps[]) =>
+          pv.map((todo) =>
+            todo.id === id ? {...todo,  text: newText } : todo
           )
         );
-        const updatedTodos = JSON.stringify(todos)
-        localStorage.setItem("todos", updatedTodos)
+
       };
 
     const removeElement = (id: number) => {
-      setTodos((pv) => pv.filter((t) => t.id !== id));
+      setTodos((pv: TodoProps[]) => pv.filter((t) => t.id !== id));
         toast.error('Todo has been removed')
-        const updateTodos = JSON.stringify(todos.filter((todo) => todo.id !== id))
-        localStorage.setItem("todos", updateTodos)
-
     };
 
     return (

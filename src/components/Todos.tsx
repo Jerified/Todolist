@@ -11,9 +11,8 @@ const Todos = React.memo(({ todos, handleCheck, removeElement, handleSaveEdit }:
           {todos.map((t) => (
             <Todo
               handleCheck={handleCheck}
-              handleSaveEdit={handleSaveEdit}
+              handleSaveEdit={handleSaveEdit}  
               removeElement={removeElement}
-              {...t}
               id={t.id}
               key={t.id}
               checked={t.checked}
