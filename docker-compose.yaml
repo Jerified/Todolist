@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: Jerry08088090?
+      MYSQL_DATABASE: todo_list
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Jerry08088090?
+    ports:
+      - "8000:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - todo-net
+
+  app:
+    build: .
+    container_name: go_fiber_app
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: todouser
+      DB_PASSWORD: Jerry08088090?
+      DB_NAME: todolist_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    networks:
+      - todo-net
+
+networks:
+  todo-net:
+    driver: bridge
+
+volumes:
+  db_data:
