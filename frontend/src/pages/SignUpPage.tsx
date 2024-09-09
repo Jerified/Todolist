@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import Layout from "@/components/Layout/Layout";
+import { Link } from "react-router-dom";
 
 const signUpSchema = z.object({
     username: z.string().min(3, 'Username must be at least 3 characters'),
@@ -41,7 +42,7 @@ export default function SignUpPage() {
 
     return (
         <Layout>
-            <div className="flex flex-col text-white w-[70%] md:w-[60%] mx-auto lg:w-[50%] h-svh justify-center items-center rounded-none md:rounded-2xl p-4 md:p-8 shadow-input">
+            <div className="flex flex-col text-white w-[80%] md:w-[60%] mx-auto lg:w-[50%] h-svh justify-center items-center rounded-none md:rounded-2xl p-4 md:p-8 shadow-input">
                 <h2 className="font-bold text-2xl">Register</h2>
                 <form className="my-8 w-full" onSubmit={handleSubmit(onSubmit)}>
                     {/* Username */}
@@ -99,6 +100,15 @@ export default function SignUpPage() {
                         <BottomGradient />
                     </button>
                 </form>
+                {/* Sign Ip Link */}
+        <div className="text-center mt-4">
+          <p>
+            Already have an account?{" "}
+            <Link to="/signin" className="text-cyan-400 hover:underline">
+              Sign in
+            </Link>
+          </p>
+        </div>
             </div>
         </Layout>
     );
