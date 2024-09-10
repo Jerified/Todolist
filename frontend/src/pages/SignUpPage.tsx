@@ -29,7 +29,6 @@ export default function SignUpPage() {
     });
 
     const onSubmit = async (data: SignUpFormValues) => {
-        console.log(data)
         setLoading(true);
         try {
             await signup(data.username, data.email, data.password);
@@ -104,7 +103,7 @@ export default function SignUpPage() {
         <div className="text-center mt-4">
           <p>
             Already have an account?{" "}
-            <Link to="/signin" className="text-cyan-400 hover:underline">
+            <Link to="/login" className="text-cyan-400 hover:underline">
               Sign in
             </Link>
           </p>

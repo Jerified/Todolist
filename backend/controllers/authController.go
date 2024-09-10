@@ -62,7 +62,7 @@ func Signup(c *fiber.Ctx) error {
 	// Save user in DB
 	if result := config.DB.Create(&user); result.Error != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error":   "Could not create user",
+			"error":   "Username already in use",
 			"details": result.Error.Error(),
 		})
 	}

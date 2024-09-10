@@ -1,4 +1,3 @@
-"use client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -9,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import Layout from "@/components/Layout/Layout";
-import { toast } from "sonner";
 
 const signInSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -34,7 +32,6 @@ export default function SignInPage() {
     setLoading(true);
     try {
       await login(data.email, data.password);
-      toast.success("Login successful");
     } catch (error) {
       console.error("Login failed", error);
     } finally {

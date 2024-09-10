@@ -52,28 +52,31 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Function to handle login
   const login = async (email: string, password: string) => {
     try {
-      await axios.post('http://localhost:8000/api/login', { email, password }, {
+      const res = await axios.post('http://localhost:8000/api/login', { email, password }, {
         withCredentials: true, 
       });
       setIsAuthenticated(true);
+      console.log(res)
+      if (res.status === 200)
+      toast.success(res.data.message);
       navigate('/');
     } catch (error: any) {
-      toast.error('Email or password incorrect');
+        toast.error(error.response.data.error);
     }
-  };
+};
 
-  // Function to handle signup
-  const signup = async (username: string, email: string, password: string) => {
+// Function to handle signup
+const signup = async (username: string, email: string, password: string) => {
     try {
-      const res = await axios.post('http://localhost:8000/api/signup', { username, email, password }, {
-        withCredentials: true,
-      });
-      const newUser = res.data.user;
-      setUser(newUser);
-      setIsAuthenticated(true);
-      navigate('/login');
+        const res = await axios.post('http://localhost:8000/api/signup', { username, email, password }, {
+            withCredentials: true,
+        });
+        const newUser = res.data.user;
+        setUser(newUser);
+        setIsAuthenticated(true);
+        navigate('/login');
     } catch (error: any) {
-      toast.error('Signup failed | username or email already chosen');
+      toast.error(error.response.data.error);
     }
   };
 
