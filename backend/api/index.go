@@ -42,7 +42,3 @@ func Handler() *fiber.App {
 
 }
 
-func main() {
-	app := Handler()
-	log.Fatal(app.Listen(":8000"))   
-}
