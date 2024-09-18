@@ -12,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func Handler() *fiber.App {
+func Api() *fiber.App {
 	// Load environment variables
 	if err := godotenv.Load(); err != nil {
 		log.Fatal("Error loading .env file")
@@ -35,10 +35,12 @@ func Handler() *fiber.App {
 		AllowCredentials: true,                 
 	}))
 
-
 	routes.TodoRoutes(app, jwtSecret)
 
 	return app
-
 }
 
+func main() {
+	app := Api()
+	log.Fatal(app.Listen(":8000"))   
+}
