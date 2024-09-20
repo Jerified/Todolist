@@ -8,11 +8,14 @@ const Todos = React.memo(({ todos, handleCheck, removeElement, handleSaveEdit }:
   return (
     <div className="w-full space-y-3">
       <AnimatePresence>
-        {Array.isArray(todos) && todos.length === 0 ? (
+        {!todos || todos.length === 0 ? (
           <motion.div
             className="text-2xl font-semibold pt-24 text-center text-zinc-500"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            No todos available
+            No todos found
           </motion.div>
         ) : (
           todos.map((t) => (

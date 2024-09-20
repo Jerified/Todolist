@@ -41,7 +41,7 @@ export default function SignInPage() {
 
   return (
     <Layout>
-      <div className="flex flex-col text-white w-[80%] md:w-[60%] mx-auto lg:w-[50%] h-svh justify-center items-center rounded-none md:rounded-2xl p-4 md:p-8 shadow-input">
+      <div className="flex flex-col text-white w-[80%] md:w-[60%] mx-auto lg:w-[40%] h-svh justify-center items-center rounded-none md:rounded-2xl p-4 md:p-8 shadow-input">
         <h2 className="font-bold text-2xl">Sign In</h2>
         <form className="my-8 w-full" onSubmit={handleSubmit(onSubmit)}>
           {/* Email */}
