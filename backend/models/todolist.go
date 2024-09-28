@@ -1,7 +1,7 @@
 package models
 
 import (
-	// "gorm.io/gorm"
+	"time"
 )
 
 type User struct {
@@ -13,11 +13,13 @@ type User struct {
 }
 
 type Todo struct {
-	ID      uint   `gorm:"primaryKey"`
-	Text    string `gorm:"size:255"`
-	Checked bool   `gorm:"default:false"`
-	Time    string `gorm:"default:15"`
-	UserID  uint   `gorm:"not null"`
+	ID        uint      `gorm:"primaryKey"`
+	Text      string    `gorm:"size:255"`
+	Checked   bool      `gorm:"default:false"`
+	Time      string    `gorm:"default:15"`
+	UserID    uint      `gorm:"not null"`
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
 
 func (User) TableName() string {
