@@ -7,7 +7,7 @@ import Layout from "@/components/Layout/Layout";
 import Header from "@/components/Header";
 
 const HomePage = () => {
-    const backendUrl = process.env.BACKEND_URL;
+    const backendUrl = "https://todolist-eptq.onrender.com";
     const [todos, setTodos] = useState<TodoProps[]>([]);
 
     const fetchTodos = useCallback(async () => {

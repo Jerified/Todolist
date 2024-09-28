@@ -23,7 +23,7 @@ interface User {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const backendUrl = process.env.BACKEND_URL;
+    const backendUrl = "https://todolist-eptq.onrender.com";
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);

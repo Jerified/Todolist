@@ -9,7 +9,7 @@ interface FormProps {
 }
 
 const AddTodo = ({ setTodos }: FormProps) => {
-    const backendUrl = process.env.BACKEND_URL;
+    const backendUrl = "https://todolist-eptq.onrender.com";
 
   const [visible, setVisible] = useState(false);
   const textInputRef = useRef<HTMLTextAreaElement>(null);
