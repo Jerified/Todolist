@@ -14,11 +14,8 @@ import (
 
 func Handler() *fiber.App {
 	// Load environment variables
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
-	}
-    port := os.Getenv("PORT_URL")
-
+	godotenv.Load(); 
+    
 	// Initialize JWT secret
 	jwtSecret := []byte(os.Getenv("AUTH_SECRET"))
 
@@ -30,7 +27,7 @@ func Handler() *fiber.App {
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     port,
+		AllowOrigins:     "*",
 		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,PATCH",
 		AllowCredentials: true,                 
 	}))
