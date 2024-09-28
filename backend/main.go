@@ -14,9 +14,7 @@ import (
 
 func Handler() *fiber.App {
 	// Load environment variables
-	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	godotenv.Load(); 
     port := os.Getenv("PORT_URL")
 
 	// Initialize JWT secret
