@@ -23,6 +23,7 @@ interface User {
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+    const backendUrl = process.env.BACKEND_URL;
   const [user, setUser] = useState<User | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -32,7 +33,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const fetchUser = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('http://localhost:8000/api/user', {
+        const res = await axios.get(`${backendUrl}/api/user`, {
           withCredentials: true,
         });
         setUser(res.data);
@@ -52,7 +53,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Function to handle login
   const login = async (email: string, password: string) => {
     try {
-      const res = await axios.post('http://localhost:8000/api/login', { email, password }, {
+      const res = await axios.post(`${backendUrl}/api/login`, { email, password }, {
         withCredentials: true, 
       });
       setIsAuthenticated(true);
@@ -68,7 +69,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 // Function to handle signup
 const signup = async (username: string, email: string, password: string) => {
     try {
-        const res = await axios.post('http://localhost:8000/api/signup', { username, email, password }, {
+        const res = await axios.post(`${backendUrl}/api/signup`, { username, email, password }, {
             withCredentials: true,
         });
         const newUser = res.data.user;
@@ -83,7 +84,7 @@ const signup = async (username: string, email: string, password: string) => {
   // Function to handle logout
   const logout = async () => {
     try {
-      await axios.post('http://localhost:8000/api/logout', {}, {
+      await axios.post(`${backendUrl}/api/logout`, {}, {
         withCredentials: true,
       });
       setUser(null);

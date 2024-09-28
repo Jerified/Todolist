@@ -9,6 +9,8 @@ interface FormProps {
 }
 
 const AddTodo = ({ setTodos }: FormProps) => {
+    const backendUrl = process.env.BACKEND_URL;
+
   const [visible, setVisible] = useState(false);
   const textInputRef = useRef<HTMLTextAreaElement>(null);
   const [time, setTime] = useState(15);
@@ -36,7 +38,7 @@ const AddTodo = ({ setTodos }: FormProps) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/api/todos", {
+      const response = await fetch(`${backendUrl}/api/todos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

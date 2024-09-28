@@ -7,11 +7,12 @@ import Layout from "@/components/Layout/Layout";
 import Header from "@/components/Header";
 
 const HomePage = () => {
+    const backendUrl = process.env.BACKEND_URL;
     const [todos, setTodos] = useState<TodoProps[]>([]);
 
     const fetchTodos = useCallback(async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/todos", {
+            const response = await fetch(`${backendUrl}/api/todos`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -35,7 +36,7 @@ const HomePage = () => {
 
     const updateTodo = useCallback(async (id: number, updatedTodo: Partial<TodoProps>) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/todos/${id}`, {
+            const response = await fetch(`${backendUrl}/api/todos/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,7 +88,7 @@ const HomePage = () => {
         toast.error('Todo has been removed');
 
         try {
-            const response = await fetch(`http://localhost:8000/api/todos/${id}`, {
+            const response = await fetch(`${backendUrl}/api/todos/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
